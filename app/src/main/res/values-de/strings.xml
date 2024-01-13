@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OneNote</string>
     <string name="login">Anmelden</string>
+    <string name="signed_in">Angemeldet</string>
 </resources>
