@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
             val ivIcon = findViewById<ImageView>(R.id.ivIcon)
             val rotation = AnimationUtils.loadAnimation(this, R.anim.rotate)
             ivIcon.startAnimation(rotation)
+
+            val intent = Intent(this, ListActivity::class.java)
+            startActivity(intent)
         }
     }
 }
