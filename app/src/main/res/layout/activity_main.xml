@@ -15,6 +15,7 @@
         style="@style/Title"/>
 
     <ImageView
+        android:id="@+id/ivIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Icon"/>
