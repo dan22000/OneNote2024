@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 
 class ListActivity : AppCompatActivity() {
@@ -19,6 +21,13 @@ class ListActivity : AppCompatActivity() {
 
         tvTitle = findViewById(R.id.tvTitle)
         tvMessage = findViewById(R.id.tvMessage)
+        val lvNotes = findViewById<ListView>(R.id.lvNotes)
+        val notes = arrayOf(
+            "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test",
+            "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test"
+        )
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, notes)
+        lvNotes.adapter = arrayAdapter
     }
 
     override fun onResume() {

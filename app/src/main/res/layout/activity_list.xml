@@ -28,4 +28,9 @@
     android:text="@string/hint_message"
     style="@style/ListItem.Message"/>
 
+<ListView
+    android:id="@+id/lvNotes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
 </LinearLayout>
