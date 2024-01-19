@@ -19,9 +19,11 @@ class NoteEditActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
 
         val etTitle = findViewById<EditText>(R.id.etTitle)
+        val etMesage = findViewById<EditText>(R.id.etMessage)
         val btnSave = findViewById<Button>(R.id.btnSave)
         btnSave.setOnClickListener{
-            Preferences().setNoteTitle(this, etTitle?.text.toString())
+            Preferences(this).setNoteTitle(etTitle?.text.toString())
+            Preferences(this).setNoteMessage(etMesage?.text.toString())
             finish()
         }
     }
