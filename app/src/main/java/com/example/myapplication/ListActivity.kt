@@ -16,7 +16,7 @@ class ListActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.tbMain))
 
         val title = findViewById<TextView>(R.id.tvTitle)
-        title.text = "dasdasdasdasd"
+        title.text = Preferences().getNoteTitle(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
