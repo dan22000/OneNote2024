@@ -5,4 +5,5 @@
     <string name="hint_title">Title</string>
     <string name="hint_message">Text</string>
     <string name="add">Hinzufügen</string>
+    <string name="save">Save</string>
 </resources>

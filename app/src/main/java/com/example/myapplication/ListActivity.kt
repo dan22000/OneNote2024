@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -26,7 +27,8 @@ class ListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add) {
-            Toast.makeText(this, getString(R.string.add), Toast.LENGTH_LONG).show()
+            val intent = Intent(this, NoteEditActivity::class.java)
+            startActivity(intent)
         }
 
         return super.onOptionsItemSelected(item)
