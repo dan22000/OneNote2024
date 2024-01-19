@@ -14,12 +14,15 @@ class NoteEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_edit)
 
+        // Set toolbar
         setSupportActionBar(findViewById(R.id.tbEdit))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
 
+        // Init preferences
         preferences = Preferences(this)
 
+        // Find views by Id
         val etTitle = findViewById<EditText>(R.id.etTitle)
         val etMessage = findViewById<EditText>(R.id.etMessage)
         val btnSave = findViewById<Button>(R.id.btnSave)
