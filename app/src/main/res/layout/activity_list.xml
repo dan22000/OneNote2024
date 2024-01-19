@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".ListActivity">
 
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="20sp"
-    android:text="Title"/>
+    android:text="@string/hint_title"
+    style="@style/ListItem"/>
 
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="16sp"
-    android:text="Message"/>
+    android:text="@string/hint_message"
+    style="@style/ListItem"/>
 
 </LinearLayout>

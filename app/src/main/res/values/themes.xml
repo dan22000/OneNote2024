@@ -23,4 +23,12 @@
         <item name="android:text">@string/login</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="ListItem">
+        <item name="android:layout_marginStart">@dimen/margin_medium</item>
+        <item name="android:layout_marginEnd">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+        <item name="android:layout_marginBottom">@dimen/margin_small</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
