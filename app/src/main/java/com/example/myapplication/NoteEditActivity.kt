@@ -9,10 +9,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.room.Room
 
 class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
 
-    private var preferences: Preferences? = null
+    private var noteDao: NoteDao? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_edit)
@@ -22,26 +24,31 @@ class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
 
-        // Init preferences
-        preferences = Preferences(this)
-
         // Find views by Id
         val etTitle = findViewById<EditText>(R.id.etTitle)
         val etMessage = findViewById<EditText>(R.id.etMessage)
         val btnSave = findViewById<Button>(R.id.btnSave)
-        btnSave.setOnClickListener{
-            preferences!!.setNoteTitle(etTitle?.text.toString())
-            preferences!!.setNoteMessage(etMessage?.text.toString())
 
+        // Initialize Room DB
+        val db = Room.databaseBuilder(
+            applicationContext,
+            NotesDatabase::class.java, "notes"
+        ).allowMainThreadQueries().build()
+        noteDao = db.noteDao()
+
+        // Set OnClickListener
+        btnSave.setOnClickListener{
+            val title = etTitle?.text.toString()
+            val message = etMessage?.text.toString()
+
+            noteDao!!.insertAll(Note(title, message))
             // Show toast for user
-            Toast.makeText(this, getString(R.string.note_saved), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, noteDao!!.getAll().toString(), Toast.LENGTH_LONG).show()
 
             finish()
         }
 
-        // Prefill title and message
-        etTitle.setText(preferences!!.getNoteTitle())
-        etMessage.setText(preferences!!.getNoteMessage())
+        // TODO Prefill title and message
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -68,9 +75,7 @@ class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
     }
 
     override fun onClick(p0: DialogInterface?, p1: Int) {
-        // Set title and message to null
-        preferences!!.setNoteTitle(null)
-        preferences!!.setNoteMessage(null)
+        // TODO Set title and message to null
 
         // Show toast to user
         Toast.makeText(this, getString(R.string.note_deleted), Toast.LENGTH_LONG).show()
