@@ -14,16 +14,11 @@ import androidx.room.Room
 class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
 
     private var noteDao: NoteDao? = null
+    private var note: Note? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_edit)
-
-        val id = intent.getLongExtra("id", -1)
-        Toast.makeText(this, id.toString(), Toast.LENGTH_LONG).show()
-        // TODO Set title and message
-        // TODO Update note
-        // TODO Delete note
 
         // Set toolbar
         setSupportActionBar(findViewById(R.id.tbEdit))
@@ -42,19 +37,32 @@ class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
         ).allowMainThreadQueries().build()
         noteDao = db.noteDao()
 
+        // Get note id from Intent
+        val id = intent.getLongExtra("id", -1)
+        if (id >= 0) {
+            note = noteDao!!.loadAllByIds(id.toInt())[0]
+            etTitle?.setText(note?.title)
+            etMessage?.setText(note?.message)
+        }
+
         // Set OnClickListener
         btnSave.setOnClickListener{
             val title = etTitle?.text.toString()
             val message = etMessage?.text.toString()
 
-            noteDao!!.insertAll(Note(title, message))
+            if (note != null) {
+                note!!.title = title
+                note!!.message = message
+                noteDao?.update(note!!)
+            } else {
+                noteDao!!.insertAll(Note(title, message))
+            }
+
             // Show toast for user
             Toast.makeText(this, noteDao!!.getAll().toString(), Toast.LENGTH_LONG).show()
 
             finish()
         }
-
-        // TODO Prefill title and message
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,12 +89,13 @@ class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
     }
 
     override fun onClick(p0: DialogInterface?, p1: Int) {
-        // TODO Set title and message to null
+        note?.let {
+            noteDao?.delete(it)
 
-        // Show toast to user
-        Toast.makeText(this, getString(R.string.note_deleted), Toast.LENGTH_LONG).show()
+            // Display Toast
+            Toast.makeText(this, R.string.delete_message, Toast.LENGTH_LONG).show()
 
-        // Finish activity
-        finish()
+            finish()
+        }
     }
 }
