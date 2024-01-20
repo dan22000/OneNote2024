@@ -13,6 +13,7 @@ import androidx.room.Room
 class ListActivity : AppCompatActivity() {
 
     private var noteDao: NoteDao? = null
+    private var adapter: NoteAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +28,18 @@ class ListActivity : AppCompatActivity() {
         ).allowMainThreadQueries().build()
         noteDao = db.noteDao()
 
+        // Find view by Ids
         val lvNotes = findViewById<ListView>(R.id.lvNotes)
-        val adapter = NoteAdapter(this, noteDao!!.getAll())
+        adapter = NoteAdapter(this, noteDao!!.getAll())
         lvNotes.adapter = adapter
     }
 
     override fun onResume() {
         super.onResume()
 
-        // TODO Update View
+        // Update View
+        adapter?.notes = noteDao!!.getAll()
+        adapter?.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.TextView
 
 class NoteAdapter(var context: Context, var notes: List<Note>): BaseAdapter() {
 
@@ -23,6 +24,12 @@ class NoteAdapter(var context: Context, var notes: List<Note>): BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = inflater.inflate(R.layout.list_item_view, parent, false)
+
+        val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
+        val tvMessage = view.findViewById<TextView>(R.id.tvMessage)
+
+        tvTitle.text = notes[position].title
+        tvMessage.text = notes[position].message
 
         return view;
     }
