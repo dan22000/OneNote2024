@@ -19,6 +19,12 @@ class NoteEditActivity : AppCompatActivity(), DialogInterface.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_edit)
 
+        val id = intent.getLongExtra("id", -1)
+        Toast.makeText(this, id.toString(), Toast.LENGTH_LONG).show()
+        // TODO Set title and message
+        // TODO Update note
+        // TODO Delete note
+
         // Set toolbar
         setSupportActionBar(findViewById(R.id.tbEdit))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

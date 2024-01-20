@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.room.Room
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     private var noteDao: NoteDao? = null
     private var adapter: NoteAdapter? = null
@@ -32,6 +34,7 @@ class ListActivity : AppCompatActivity() {
         val lvNotes = findViewById<ListView>(R.id.lvNotes)
         adapter = NoteAdapter(this, noteDao!!.getAll())
         lvNotes.adapter = adapter
+        lvNotes.onItemClickListener = this
     }
 
     override fun onResume() {
@@ -55,5 +58,11 @@ class ListActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, id: Long) {
+        val intent = Intent(this, NoteEditActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
     }
 }
