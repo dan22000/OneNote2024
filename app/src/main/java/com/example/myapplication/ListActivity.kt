@@ -8,8 +8,11 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import androidx.room.Room
 
 class ListActivity : AppCompatActivity() {
+
+    private var noteDao: NoteDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +20,16 @@ class ListActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.tbMain))
 
+        // Initialize Room DB
+        val db = Room.databaseBuilder(
+            applicationContext,
+            NotesDatabase::class.java, "notes"
+        ).allowMainThreadQueries().build()
+        noteDao = db.noteDao()
+
         val lvNotes = findViewById<ListView>(R.id.lvNotes)
+        val adapter = NoteAdapter(this, noteDao!!.getAll())
+        lvNotes.adapter = adapter
     }
 
     override fun onResume() {
